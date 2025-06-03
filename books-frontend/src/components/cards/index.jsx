@@ -4,10 +4,17 @@ import api from "../../services/api";
 
 const Card = () => {
     const [books, setBooks] = useState([]);
+    const [editingBook, setEditingBook] = useState(null);
+
     const titleRef = useRef();
     const authorRef = useRef();
     const yearRef = useRef();
     const imageRef = useRef();
+
+    const editTitleRef = useRef();
+    const editAuthorRef = useRef();
+    const editYearRef = useRef();
+    const editImageRef = useRef();
 
     async function getBook() {
         try {
@@ -43,6 +50,21 @@ const Card = () => {
         getBook()
     }
 
+    async function updateBook() {
+        try {
+            await api.put(`/api/books/${editingBook.id}`, {
+                title:editTitleRef.current.value,
+                author: editAuthorRef.current.value,
+                year: Number(editYearRef.current.value),
+                imageUrl: editImageRef.current.value
+            });
+            setEditingBook(null);
+            getBook()
+        } catch (error) {
+            alert(error);
+        }
+    }
+
     useEffect(() => {
         getBook()
     },[])
@@ -52,6 +74,16 @@ const Card = () => {
         authorRef.current.value = "";
         yearRef.current.value = "";
         imageRef.current.value = "";
+    }
+
+    function startEdit(book) {
+        setEditingBook(book);
+        setTimeout(() => {
+            editTitleRef.current.value = book.title;
+            editAuthorRef.current.value = book.author;
+            editYearRef.current.value = book.year;
+            editImageRef.current.value = book.imageUrl;
+        },0);
     }
 
    return(
@@ -79,6 +111,23 @@ const Card = () => {
                     <button type="button" onClick={createBook}>Postar</button>
                 </form>
             </div>
+
+            {
+                editingBook && (
+                    <div className="modal-backdrop">
+                        <div className="edit-form">
+                            <h2>Editar livro</h2>
+                            <input type="text" placeholder="Title" ref={editTitleRef} />
+                            <input type="text" placeholder="Author" ref={editAuthorRef} />
+                            <input type="text" placeholder="Year" ref={editYearRef} />
+                            <input type="text" placeholder="Image" ref={editImageRef} />
+                            <button type="button" onClick={updateBook}>Atualizar</button>
+                            <button type="button" onClick={() => setEditingBook(null)}>Cancelar</button>
+                        </div>
+                    </div>
+                   
+                )
+            }
             <div className="card">
                 {
                     books.map(book => (
@@ -86,8 +135,16 @@ const Card = () => {
                                 <p>Title: <span>{book.title}</span></p>
                                 <p>Author: <span>{book.author}</span></p>
                                 <p>Year: <span>{book.year}</span></p>
-                                <img className="btn-imageUrl" src={book.imageUrl} alt="imagem do filme" />
-                                <button className="btn-delete" type="button" onClick={() =>deleteBook(book.id)}><img src="src/assets/delete1.png" alt="" /></button>
+                                <img className="content-imageUrl" src={book.imageUrl} alt="imagem do filme" />
+                                <div className="buttons">
+                                    <button className="btn-delete" type="button" onClick={() =>deleteBook(book.id)}>
+                                        <img src="src/assets/delete1.png" alt="deletar" />
+                                    </button>
+                                    <button className="btn-edit" onClick={() => startEdit(book)}>
+                                        <img src="src/assets/edit.png" alt="" />
+                                    </button>
+                                </div>
+                                
                         </div>
                     ))
                 }

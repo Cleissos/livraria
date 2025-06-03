@@ -95,7 +95,7 @@
     display: block;
     width: 50%;
     height: 50px;
-    margin: 25px auto;
+    margin: 35px auto;
     border-radius: 5px;
     border: 0;
     font-size: 22px;
@@ -139,23 +139,98 @@
     transition: .3s;
 }
 
-.card .content .btn-delete {
+.card .content .content-imageUrl {
+    width: 220px;
+    height: 180px;
+    margin-top: 5px;
+}
+
+.card .content .buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.card .content .buttons .btn-delete {
     width: 40px;
     height: 40px;
     border: 0;
     background-color: transparent;
 }
 
-.card .content .btn-delete:hover {
+.card .content .buttons .btn-delete:hover {
     border-radius: 50%;
     background-color: beige;
     transition: .3s;
 }
 
-.card .content .btn-imageUrl {
-    width: 220px;
-    height: 180px;
-    margin-top: 5px;
+.card .content .buttons .btn-edit {
+    width: 40px;
+    height: 40px;
+    border: 0;
+    background-color: transparent;
+
+    img {
+        width: 30px;
+    }
+}
+
+.card .content .buttons .btn-edit:hover {
+    border-radius: 50%;
+    background-color: beige;
+    transition: .3s;
+}
+
+/* Modal de edição */
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(5px);
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.edit-form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.edit-form input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.edit-form button {
+    padding: 10px;
+    margin-top: 8px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.edit-form button:first-of-type {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.edit-form button:last-of-type {
+    background-color: #f44336;
+    color: white;
 }
 
 @media screen and (max-width:1250px) {
