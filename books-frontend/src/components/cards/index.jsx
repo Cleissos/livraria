@@ -1,6 +1,9 @@
 import { useState, useRef, useEffect } from "react";
 import './index.css';
 import api from "../../services/api";
+import logo from '../../assets/logo2.png';
+import imgDelete from '../../assets/delete1.png'
+import imgEdit from '../../assets/edit.png'
 
 const Card = () => {
     const [books, setBooks] = useState([]);
@@ -90,7 +93,7 @@ const Card = () => {
     <div className="container">
         <header className="header">
             <header className="logo">
-                <img src="src/assets/logo2.png" alt="" />
+                <img src={logo} alt="" />
             </header>
             <nav className="navbar">
                 <a href="#"className="nave-link">Biografia</a>
@@ -138,10 +141,10 @@ const Card = () => {
                                 <img className="content-imageUrl" src={book.imageUrl} alt="imagem do filme" />
                                 <div className="buttons">
                                     <button className="btn-delete" type="button" onClick={() =>deleteBook(book.id)}>
-                                        <img src="src/assets/delete1.png" alt="deletar" />
+                                        <img src={imgDelete} alt="deletar" />
                                     </button>
                                     <button className="btn-edit" onClick={() => startEdit(book)}>
-                                        <img src="src/assets/edit.png" alt="" />
+                                        <img src={imgEdit} alt="" />
                                     </button>
                                 </div>
                                 
