@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Lombok;
 import lombok.NoArgsConstructor;
 
 @Data // Cria getters, setters, toString, equals, hashCode

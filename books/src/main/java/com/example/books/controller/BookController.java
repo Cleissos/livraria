@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api/books")
 public class BookController {
@@ -23,6 +23,7 @@ public class BookController {
         return service.getAllBooks();
     }
 
+
     @GetMapping("/{id}")
     public ResponseEntity<Book> getBookById(@PathVariable Long id) {
         return service.getBookById(id)
@@ -30,10 +31,12 @@ public class BookController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+
     @PostMapping
     public Book createBook(@RequestBody Book book) {
         return service.createBook(book);
     }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<Book> updateBook(@PathVariable Long id, @RequestBody BookUpdateDTO dto) {
@@ -44,6 +47,7 @@ public class BookController {
             return ResponseEntity.notFound().build();
         }
     }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBook(@PathVariable Long id) {
